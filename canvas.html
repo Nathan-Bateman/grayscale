@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<html>
+<body>
+  <div>
+    <input type="file" id="file" />  
+  </div>
+  <div>
+    <button id="greyBtn">GreyScale</button>
+
+  </div>
+  <br>
+<canvas id='c' width='500' height='500'>
+</canvas>
+<script type="text/javascript">
+var imageLoader = document.getElementById('file');
+    imageLoader.addEventListener('change', handleImage, false);
+var c = document.getElementById('c');
+var ctx = c.getContext('2d');
+document.getElementById("greyBtn").addEventListener("click", function grayscale(src){ 
+    c.width = img.width; //getting width and heigth of only image on page
+    c.height = img.height; 
+    ctx.drawImage(img, 0, 0); //redraws the uploaded image
+    var imgPixels = ctx.getImageData(0, 0, c.width, c.height); //data object with H, W, and pixels
+    for(var y = 0; y < imgPixels.height; y++){ //going through H and W to get total pixels (source: stack overflow)
+        for(var x = 0; x < imgPixels.width; x++){
+            var i = (y * 4) * imgPixels.width + x * 4; //multiply each pixel by 4 (rgba) to get each channel 
+            var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3; 
+            imgPixels.data[i] = avg; 
+            imgPixels.data[i + 1] = avg; 
+            imgPixels.data[i + 2] = avg;
+        }
+    }
+    ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height); 
+    return c.toDataURL();
+});
+
+function handleImage(e){ 
+    var reader = new FileReader(); //file reader API to get data from image uploaded by user
+    reader.onload = function(event){ //what the reader will do on the event (upload)
+        img = new Image(); //just creates a new image element in which the uploaded image will live
+        img.onload = function(){
+            c.width = img.width;//image uploaded?, reset the canvas width and height to fit the image's
+            c.height = img.height;
+            ctx.drawImage(img,0,0);//method to draw the image beginning at the 0 x and y coordinates
+        }
+        img.src = event.target.result;//sets the source to the image data uri
+    }
+    reader.readAsDataURL(e.target.files[0]);  //method to read the image as data uri  
+ 
+
+}
+
+
+
+
+</script>
+</body>
+
+</html>
