@@ -12,6 +12,7 @@
   <br>
   <div>
     <button id="greyBtn">GreyScale</button>
+    <button id="saveBtn">Save</button>
 
   </div>
   <br>
@@ -25,6 +26,9 @@ var ctx = c.getContext('2d');
 ctx.font = "48px sans serif";
 ctx.strokeText("Image here", 150, 200);
 ctx.strokeRect(0, 0, 500, 500);
+  function saveFile() {
+      window.open(document.getElementById('c').toDataURL());
+    }
 document.getElementById("greyBtn").addEventListener("click", function grayscale(src){ 
     c.width = img.width; //getting width and heigth of only image on page
     c.height = img.height; 
