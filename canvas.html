@@ -9,6 +9,7 @@
   <div>
     <input type="file" id="file" />  
   </div>
+  <br>
   <div>
     <button id="greyBtn">GreyScale</button>
 
@@ -21,6 +22,9 @@ var imageLoader = document.getElementById('file');
     imageLoader.addEventListener('change', handleImage, false);
 var c = document.getElementById('c');
 var ctx = c.getContext('2d');
+ctx.font = "48px sans serif";
+ctx.strokeText("Image here", 150, 200);
+ctx.strokeRect(0, 0, 500, 500);
 document.getElementById("greyBtn").addEventListener("click", function grayscale(src){ 
     c.width = img.width; //getting width and heigth of only image on page
     c.height = img.height; 
@@ -36,7 +40,6 @@ document.getElementById("greyBtn").addEventListener("click", function grayscale(
         }
     }
     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height); 
-    // return c.toDataURL();
 });
 
 function handleImage(e){ 
