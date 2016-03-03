@@ -29,6 +29,7 @@ ctx.strokeRect(0, 0, 500, 500);
   function saveFile() {
       window.open(document.getElementById('c').toDataURL());
     }
+    document.getElementById('saveBtn').addEventListener('click', saveFile, false);
 document.getElementById("greyBtn").addEventListener("click", function grayscale(src){ 
     c.width = img.width; //getting width and heigth of only image on page
     c.height = img.height; 
